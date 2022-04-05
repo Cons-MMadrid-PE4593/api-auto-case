@@ -1,0 +1,10 @@
+image:
+  repository: registry.global.ccc.srvb.can.paas.cloudcenter.corp/AutoCase/api-auto-case
+  tag: 0.1.0
+
+env: pro
+microservice: apiautocase
+
+configurationFiles:
+  - name: apiautocase
+    data: |-

@@ -1,0 +1,18 @@
+CERT:
+  certnode1:
+    NAMESPACE: AutoCase-dev
+    CREDENTIALS: TBD
+    AKS_NAME: TBD
+    AKS_RSG: TBD
+PRE:
+  prenode1:
+    NAMESPACE: AutoCase-pre
+    CREDENTIALS: TBD
+    AKS_NAME: TBD
+    AKS_RSG: TBD
+PRO:
+  pronode1:
+    NAMESPACE: AutoCase
+    CREDENTIALS: TBD
+    AKS_NAME: TBD
+    AKS_RSG: TBD
