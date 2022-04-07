@@ -20,7 +20,7 @@ public class SpringFoxConfig {
 	
 	ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("AutoSCFE")
+				.title("CalculatorSCF")
 	            .description("Api to process a loan to Auto financiation")
 	            .license("Apache 2.0")
 	            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")

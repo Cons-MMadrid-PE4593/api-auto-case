@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class Constants {
 
 	// Paths
-	public static final String REQUEST_MAPPING_PATH = "/AutoSCFE";
+	public static final String REQUEST_MAPPING_PATH = "/CalculatorSCF";
 			
 	// Methods
 

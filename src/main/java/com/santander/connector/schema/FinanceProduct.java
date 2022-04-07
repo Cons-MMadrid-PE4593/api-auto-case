@@ -1,5 +1,6 @@
 package com.santander.connector.schema;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,35 +14,44 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * ProductValidations
+ * FinanceProduct
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-06T11:45:16.492+02:00")
 
-public class ProductValidations   {
-  @JsonProperty("Validation")
+public class FinanceProduct   {
+  @JsonProperty("Product")
+  @Valid
   @JacksonXmlElementWrapper(useWrapping = false)
-  private List<Validation> validation = null;
+  private List<Product> product = null;
 
-  public ProductValidations validation(List<Validation> validation) {
-    this.validation = validation;
+  public FinanceProduct product(List<Product> product) {
+    this.product = product;
+    return this;
+  }
+
+  public FinanceProduct addProductItem(Product productItem) {
+    if (this.product == null) {
+      this.product = new ArrayList<Product>();
+    }
+    this.product.add(productItem);
     return this;
   }
 
   /**
-   * Get validation
-   * @return validation
+   * Get product
+   * @return product
   **/
   @ApiModelProperty(value = "")
 
   @Valid
 
-  public List<Validation> getValidation() {
-    return validation;
+  public List<Product> getProduct() {
+    return product;
   }
 
-  public void setValidation(List<Validation> validation) {
-    this.validation = validation;
+  public void setProduct(List<Product> product) {
+    this.product = product;
   }
 
 
@@ -53,21 +63,21 @@ public class ProductValidations   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ProductValidations productValidations = (ProductValidations) o;
-    return Objects.equals(this.validation, productValidations.validation);
+    FinanceProduct financeProduct = (FinanceProduct) o;
+    return Objects.equals(this.product, financeProduct.product);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(validation);
+    return Objects.hash(product);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProductValidations {\n");
+    sb.append("class FinanceProduct {\n");
     
-    sb.append("    validation: ").append(toIndentedString(validation)).append("\n");
+    sb.append("    product: ").append(toIndentedString(product)).append("\n");
     sb.append("}");
     return sb.toString();
   }
