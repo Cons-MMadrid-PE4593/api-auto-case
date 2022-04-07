@@ -466,7 +466,24 @@ definitions:
       LicensePlate:
         type: string
       Vin:
-        type: stringg
+        type: string
+      text:
+        type: string
+    title: AssetsCode
+
+  Insurances:
+    type: object
+    properties:
+      LifeInsurance:
+        type: string
+      DamageInsurance:
+        type: string
+      EmploymentInsurance:
+        type: string
+      PaymentMethod:
+        type: string
+      text:
+        type: string
     title: AssetsCode
 
   Validation:
