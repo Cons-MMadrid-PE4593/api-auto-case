@@ -21,11 +21,11 @@ public class SpringFoxConfig {
 	ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("CalculatorSCF")
-	            .description("Api to process a loan to Auto financiation")
+	            .description("Api to operate GQS GetProducts and Calculator")
 	            .license("Apache 2.0")
 	            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
 	            .termsOfServiceUrl("")
-	            .version("1.0.1")
+	            .version("1.0.0")
 	            .contact(new Contact("","", "team@gruposantander.com"))
 	            .build();
 	}

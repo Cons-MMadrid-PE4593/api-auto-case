@@ -20,9 +20,6 @@ public class ProductsResponse   {
   @JsonProperty("FinanceProduct")
   private FinanceProduct financeProduct = null;
 
-  @JsonProperty("XmlData")
-  private String xmlData = null;
-
   public ProductsResponse financeProduct(FinanceProduct financeProduct) {
     this.financeProduct = financeProduct;
     return this;
@@ -44,26 +41,6 @@ public class ProductsResponse   {
     this.financeProduct = financeProduct;
   }
 
-  public ProductsResponse xmlData(String xmlData) {
-    this.xmlData = xmlData;
-    return this;
-  }
-
-  /**
-   * Get xmlData
-   * @return xmlData
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getXmlData() {
-    return xmlData;
-  }
-
-  public void setXmlData(String xmlData) {
-    this.xmlData = xmlData;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -74,22 +51,19 @@ public class ProductsResponse   {
       return false;
     }
     ProductsResponse productsResponse = (ProductsResponse) o;
-    return Objects.equals(this.financeProduct, productsResponse.financeProduct) &&
-        Objects.equals(this.xmlData, productsResponse.xmlData);
+    return Objects.equals(this.financeProduct, productsResponse.financeProduct) ;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(financeProduct, xmlData);
+    return Objects.hash(financeProduct);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ProductsResponse {\n");
-    
+    sb.append("class ProductsResponse {\n");   
     sb.append("    financeProduct: ").append(toIndentedString(financeProduct)).append("\n");
-    sb.append("    xmlData: ").append(toIndentedString(xmlData)).append("\n");
     sb.append("}");
     return sb.toString();
   }

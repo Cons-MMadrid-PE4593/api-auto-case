@@ -1,11 +1,16 @@
 package com.santander.connector.schema;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -19,6 +24,9 @@ import io.swagger.annotations.ApiModelProperty;
 public class ProductFees   {
   @JsonProperty("Fees")
   private Fees fees = null;
+  
+  @JsonIgnore
+  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
   public ProductFees fees(Fees fees) {
     this.fees = fees;
@@ -39,6 +47,16 @@ public class ProductFees   {
 
   public void setFees(Fees fees) {
     this.fees = fees;
+  }
+  
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+	return additionalProperties;
+  }
+  
+  @JsonAnySetter
+  public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+	this.additionalProperties = additionalProperties;
   }
 
 

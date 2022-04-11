@@ -1,15 +1,19 @@
 package com.santander.connector.schema;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -22,8 +26,12 @@ import io.swagger.annotations.ApiModelProperty;
 public class FinanceProduct   {
   @JsonProperty("Product")
   @Valid
-  @JacksonXmlElementWrapper(useWrapping = false)
+
   private List<Product> product = null;
+  
+  @JsonIgnore
+  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
 
   public FinanceProduct product(List<Product> product) {
     this.product = product;
@@ -53,7 +61,16 @@ public class FinanceProduct   {
   public void setProduct(List<Product> product) {
     this.product = product;
   }
-
+  
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+	return additionalProperties;
+  }
+  
+  @JsonAnySetter
+  public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+	this.additionalProperties = additionalProperties;
+  }
 
   @Override
   public boolean equals(java.lang.Object o) {

@@ -63,12 +63,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/InputParamsSchema'
-        - name: BusinessUnit
-          in: query
-          description: BusinessUnit
-          required: true
-          type: string
-          allowEmptyValue: false
         - name: Version
           in: query
           description: Version

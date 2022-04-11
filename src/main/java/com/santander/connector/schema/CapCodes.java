@@ -1,13 +1,18 @@
 package com.santander.connector.schema;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -22,6 +27,9 @@ public class CapCodes   {
   @JsonProperty("CapCode")
   @Valid
   private List<String> capCode = null;
+  
+  @JsonIgnore
+  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
   public CapCodes capCode(List<String> capCode) {
     this.capCode = capCode;
@@ -49,6 +57,16 @@ public class CapCodes   {
 
   public void setCapCode(List<String> capCode) {
     this.capCode = capCode;
+  }
+  
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+	return additionalProperties;
+  }
+  
+  @JsonAnySetter
+  public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+	this.additionalProperties = additionalProperties;
   }
 
 

@@ -1,9 +1,14 @@
 package com.santander.connector.schema;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -32,6 +37,9 @@ public class Fees   {
 
   @JsonProperty("pct_max_fee")
   private String pctMaxFee = null;
+  
+  @JsonIgnore
+  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
   public Fees feeTypeId(String feeTypeId) {
     this.feeTypeId = feeTypeId;
@@ -151,6 +159,16 @@ public class Fees   {
 
   public void setPctMaxFee(String pctMaxFee) {
     this.pctMaxFee = pctMaxFee;
+  }
+  
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+	return additionalProperties;
+  }
+  
+  @JsonAnySetter
+  public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+	this.additionalProperties = additionalProperties;
   }
 
 

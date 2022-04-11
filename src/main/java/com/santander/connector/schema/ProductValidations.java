@@ -1,12 +1,17 @@
 package com.santander.connector.schema;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javax.validation.Valid;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
@@ -20,8 +25,11 @@ import io.swagger.annotations.ApiModelProperty;
 
 public class ProductValidations   {
   @JsonProperty("Validation")
-  @JacksonXmlElementWrapper(useWrapping = false)
+
   private List<Validation> validation = null;
+  
+  @JsonIgnore
+  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
   public ProductValidations validation(List<Validation> validation) {
     this.validation = validation;
@@ -42,6 +50,16 @@ public class ProductValidations   {
 
   public void setValidation(List<Validation> validation) {
     this.validation = validation;
+  }
+  
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+	return additionalProperties;
+  }
+  
+  @JsonAnySetter
+  public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+	this.additionalProperties = additionalProperties;
   }
 
 

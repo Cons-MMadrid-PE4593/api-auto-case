@@ -30,12 +30,10 @@ public class QuotingScheme   {
   @JsonProperty("TotalTable")
   private TotalTable totalTable = null;
 
-  @JsonProperty("XmlData")
-  private String xmlData = null;
-
   @JsonProperty("text_format")
   @Valid
   private List<TextFormat> textFormat = null;
+  
 
   public QuotingScheme quoteTable(List<QuoteTable> quoteTable) {
     this.quoteTable = quoteTable;
@@ -65,6 +63,7 @@ public class QuotingScheme   {
   public void setQuoteTable(List<QuoteTable> quoteTable) {
     this.quoteTable = quoteTable;
   }
+  
 
   public QuotingScheme summaryTable(List<SummaryTable> summaryTable) {
     this.summaryTable = summaryTable;
@@ -94,6 +93,7 @@ public class QuotingScheme   {
   public void setSummaryTable(List<SummaryTable> summaryTable) {
     this.summaryTable = summaryTable;
   }
+  
 
   public QuotingScheme totalTable(TotalTable totalTable) {
     this.totalTable = totalTable;
@@ -115,26 +115,7 @@ public class QuotingScheme   {
   public void setTotalTable(TotalTable totalTable) {
     this.totalTable = totalTable;
   }
-
-  public QuotingScheme xmlData(String xmlData) {
-    this.xmlData = xmlData;
-    return this;
-  }
-
-  /**
-   * Get xmlData
-   * @return xmlData
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getXmlData() {
-    return xmlData;
-  }
-
-  public void setXmlData(String xmlData) {
-    this.xmlData = xmlData;
-  }
+  
 
   public QuotingScheme textFormat(List<TextFormat> textFormat) {
     this.textFormat = textFormat;
@@ -178,13 +159,12 @@ public class QuotingScheme   {
     return Objects.equals(this.quoteTable, quotingScheme.quoteTable) &&
         Objects.equals(this.summaryTable, quotingScheme.summaryTable) &&
         Objects.equals(this.totalTable, quotingScheme.totalTable) &&
-        Objects.equals(this.xmlData, quotingScheme.xmlData) &&
         Objects.equals(this.textFormat, quotingScheme.textFormat);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(quoteTable, summaryTable, totalTable, xmlData, textFormat);
+    return Objects.hash(quoteTable, summaryTable, totalTable, textFormat);
   }
 
   @Override
@@ -195,7 +175,6 @@ public class QuotingScheme   {
     sb.append("    quoteTable: ").append(toIndentedString(quoteTable)).append("\n");
     sb.append("    summaryTable: ").append(toIndentedString(summaryTable)).append("\n");
     sb.append("    totalTable: ").append(toIndentedString(totalTable)).append("\n");
-    sb.append("    xmlData: ").append(toIndentedString(xmlData)).append("\n");
     sb.append("    textFormat: ").append(toIndentedString(textFormat)).append("\n");
     sb.append("}");
     return sb.toString();
