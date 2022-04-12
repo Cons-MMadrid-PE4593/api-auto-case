@@ -16,7 +16,7 @@ import com.santander.connector.handler.httpclient.ServiceClientHttpRequestInterc
  * RestTemplate configuration.
  *
  */
-@Configuration
+//@Configuration
 public class RestTemplateConfig {
 
 	private final CloseableHttpClient httpClient;
