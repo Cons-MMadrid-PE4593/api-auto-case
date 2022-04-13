@@ -21,31 +21,29 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2022-04-06T11:45:16.492+02:00")
-//@JsonPropertyOrder({ "MarketIso", "DefaultCurrency", "ProductId", "ProductDesc", "ProductOnline", "ProductTypeId",
-//		"ProductTypeDesc", "ProductStartDate", "ProductEndDate", "DefaultRate", "ManufacturerDepositContribution", "MaxPayment",
-//		"ProductValidations", "ProductFees", "CapCodes" })
+
 public class Product {
 
+	@JsonProperty("ProductId")
+	private String productId = null;
+	
+	@JsonProperty("ProductDesc")
+	private String productDesc = null;
+	
+	@JsonProperty("ProductTypeId")
+	private String productTypeId = null;
+	
+	@JsonProperty("ProductTypeDesc")
+	private String productTypeDesc = null;
+	
 	@JsonProperty("MarketIso")
 	private String marketIso = null;
 
 	@JsonProperty("DefaultCurrency")
 	private String defaultCurrency = null;
 
-	@JsonProperty("ProductId")
-	private String productId = null;
-
-	@JsonProperty("ProductDesc")
-	private String productDesc = null;
-
 	@JsonProperty("ProductOnline")
 	private String productOnline = null;
-
-	@JsonProperty("ProductTypeId")
-	private String productTypeId = null;
-
-	@JsonProperty("ProductTypeDesc")
-	private String productTypeDesc = null;
 
 	@JsonProperty("ProductStartDate")
 	private String productStartDate = null;

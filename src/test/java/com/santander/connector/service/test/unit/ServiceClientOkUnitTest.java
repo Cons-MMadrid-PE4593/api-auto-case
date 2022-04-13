@@ -22,12 +22,4 @@ class ServiceClientOkUnitTest {
 		context = UtilsTest.getMockExecutionContext();
 	}
 
-	
-	@DisplayName("Test client 200")
-	@Test
-	void should_response200_when_call_client() {
-
-
-	}
-
 }

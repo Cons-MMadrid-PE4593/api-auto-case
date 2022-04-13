@@ -46,6 +46,8 @@ paths:
       summary: Get products
       description: GQS Products information
       operationId: requestProducts
+      consumes:
+        - application/json
       produces:
         - application/json
       parameters:
@@ -478,7 +480,7 @@ definitions:
         type: string
       text:
         type: string
-    title: AssetsCode
+    title: Insurances
 
   Validation:
     type: object

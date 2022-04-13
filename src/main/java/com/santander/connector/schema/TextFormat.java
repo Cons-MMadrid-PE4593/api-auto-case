@@ -1,10 +1,16 @@
 package com.santander.connector.schema;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.validation.annotation.Validated;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -23,6 +29,25 @@ public class TextFormat   {
 
   @JsonProperty("underline")
   private String underline = null;
+  
+  @JsonIgnore
+  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+
+  @JsonAnyGetter
+  public Map<String, Object> getAdditionalProperties() {
+  	return this.additionalProperties;
+  }
+
+  @JsonAnySetter
+  public void setAdditionalProperty(String name, Object value) {
+  	if (name.equals("")) {
+  		this.additionalProperties.put("text", value);
+  	}
+  	else {
+  		this.additionalProperties.put(name, value);    		
+  	}
+  }
 
   public TextFormat bold(String bold) {
     this.bold = bold;
@@ -83,9 +108,9 @@ public class TextFormat   {
   public void setUnderline(String underline) {
     this.underline = underline;
   }
+  
 
-
-  @Override
+@Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
       return true;

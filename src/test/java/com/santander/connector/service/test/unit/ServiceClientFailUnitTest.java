@@ -22,15 +22,4 @@ class ServiceClientFailUnitTest {
 		context = UtilsTest.getMockExecutionContext();
 	}
 
-	
-	@DisplayName("Test client 500")
-	@Test
-	void should_response500_when_call_client() {
-
-		
-
-	}
-	
-
-
 }

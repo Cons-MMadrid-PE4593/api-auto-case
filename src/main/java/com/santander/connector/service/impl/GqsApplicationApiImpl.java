@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.cfg.CoercionInputShape;
 import com.fasterxml.jackson.databind.type.LogicalType;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.santander.connector.client.GqsClient;
+import com.santander.connector.handler.ResponseError;
 import com.santander.connector.schema.GQSSchema;
 import com.santander.connector.schema.InputParams;
 import com.santander.connector.schema.ProductsResponse;
@@ -74,9 +75,9 @@ public class GqsApplicationApiImpl implements GqsApplicationApi {
 			@ApiParam(value = "Position of the parent operation in the trace tree. The value is 64 bits long. value is omitted when the span is the root of the trace tree. ") @RequestHeader(value = "X-B3-ParentSpanId", required = false) String xB3ParentSpanId,
 			@ApiParam(value = "Sampling decision. Sampling is a mechanism to reduce the volume of data in the tracing system. In B3, sampling applies consistently per-trace: once the sampling decision is made, the same value must be consistently sent downstream. This means that either all or no spans share a trace ID. The possible values are 0 = Deny 1 = Accept d = Debug") @RequestHeader(value = "X-B3-Sampled", required = false) String xB3Sampled,
 			@ApiParam(value = "Position of the current operation in the trace tree. The value is 64 bits long. Do not integererpret the value it may or may not be derived from the value of the TraceId.") @RequestHeader(value = "X-B3-SpanId", required = false) String xB3SpanId,
-			@ApiParam(value = "Overall ID of the trace, shared by every span in the trace. The value is 64 or 128 bits long.") @RequestHeader(value = "X-B3-TraceId", required = false) String xB3TraceId) {
+			@ApiParam(value = "Overall ID of the trace, shared by every span in the trace. The value is 64 or 128 bits long.") @RequestHeader(value = "X-B3-TraceId", required = false) String xB3TraceId) throws IOException {
 
-		if (request.getHeader("Accept") != null && accept.contains("application/json")) {
+		if (request.getHeader("Accept") != null && request.getHeader("Accept").contains("application/json")) {
 			try {
 
 				Calculate calculateReq = objectGqsFactory.createCalculate();
@@ -95,8 +96,11 @@ public class GqsApplicationApiImpl implements GqsApplicationApi {
 				return new ResponseEntity<QuotingScheme>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
+		else {
+			throw new IOException(ResponseError.StatusEnum._406_NOT_ACCEPTABLE.toString());
+		}
 
-		return new ResponseEntity<QuotingScheme>(HttpStatus.NOT_IMPLEMENTED);
+//		return new ResponseEntity<QuotingScheme>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
 	public ResponseEntity<ProductsResponse> requestProducts(
@@ -109,9 +113,9 @@ public class GqsApplicationApiImpl implements GqsApplicationApi {
 			@ApiParam(value = "Position of the parent operation in the trace tree. The value is 64 bits long. value is omitted when the span is the root of the trace tree. ") @RequestHeader(value = "X-B3-ParentSpanId", required = false) String xB3ParentSpanId,
 			@ApiParam(value = "Sampling decision. Sampling is a mechanism to reduce the volume of data in the tracing system. In B3, sampling applies consistently per-trace: once the sampling decision is made, the same value must be consistently sent downstream. This means that either all or no spans share a trace ID. The possible values are 0 = Deny 1 = Accept d = Debug") @RequestHeader(value = "X-B3-Sampled", required = false) String xB3Sampled,
 			@ApiParam(value = "Position of the current operation in the trace tree. The value is 64 bits long. Do not integererpret the value it may or may not be derived from the value of the TraceId.") @RequestHeader(value = "X-B3-SpanId", required = false) String xB3SpanId,
-			@ApiParam(value = "Overall ID of the trace, shared by every span in the trace. The value is 64 or 128 bits long.") @RequestHeader(value = "X-B3-TraceId", required = false) String xB3TraceId) {
+			@ApiParam(value = "Overall ID of the trace, shared by every span in the trace. The value is 64 or 128 bits long.") @RequestHeader(value = "X-B3-TraceId", required = false) String xB3TraceId) throws IOException {
 
-		if (request.getHeader("Accept") != null && accept.contains("application/json")) {
+		if (request.getHeader("Accept") != null && request.getHeader("Accept").contains("application/json")) {
 			try {
 
 				GetProdutcs getProductsRequest = objectGqsFactory.createGetProdutcs();
@@ -130,8 +134,11 @@ public class GqsApplicationApiImpl implements GqsApplicationApi {
 				return new ResponseEntity<ProductsResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
+		else {
+			throw new IOException(ResponseError.StatusEnum._406_NOT_ACCEPTABLE.toString());
+		}
 
-		return new ResponseEntity<ProductsResponse>(HttpStatus.NOT_IMPLEMENTED);
+//		return new ResponseEntity<ProductsResponse>(HttpStatus.NOT_IMPLEMENTED);
 	}
 	
 	public <T> T getJsonFormatResponse(String result, ObjectMapper objectMapper, Class<T> response)
