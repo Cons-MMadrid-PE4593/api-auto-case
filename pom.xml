@@ -276,10 +276,10 @@
 <!-- 								<goal>generate</goal> -->
 <!-- 							</goals> -->
 <!-- 							<configuration> -->
-<!-- 								<inputSpec>${project.basedir}/src/main/resources/AutosSCF-0.0.1-swagger.yaml</inputSpec> -->
+<!-- 								<inputSpec>${project.basedir}/src/main/resources/CalculatorSCF-0.0.1-swagger.yaml</inputSpec> -->
 <!-- 								<language>spring</language> -->
 <!-- 								<configOptions> -->
-<!-- 									<sourceFolder>src/main/java/com/santander/connector/schema</sourceFolder> -->
+<!-- 									<sourceFolder>src/main/java/com/santander/connector/generated</sourceFolder> -->
 <!-- 								</configOptions> -->
 <!-- 							</configuration> -->
 <!-- 						</execution> -->
