@@ -8,3 +8,6 @@ microservice: apiautocase
 configurationFiles:
   - name: apiautocase
     data: |-
+
+gqs:
+  url: https://ficresfrontcert.scftest.santanderconsumer.es/GQS/GQS.asmx?WSDL

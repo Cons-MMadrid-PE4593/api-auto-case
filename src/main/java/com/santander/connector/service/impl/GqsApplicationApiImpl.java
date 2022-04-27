@@ -1,6 +1,7 @@
 package com.santander.connector.service.impl;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -32,7 +33,9 @@ import com.santander.connector.schema.GQSSchema;
 import com.santander.connector.schema.InputParams;
 import com.santander.connector.schema.ProductsResponse;
 import com.santander.connector.schema.QuotingScheme;
+import com.santander.connector.schema.TextFormat;
 import com.santander.connector.service.GqsApplicationApi;
+import com.santander.connector.utils.HtmlUtil;
 import com.santander.gqs.client.Calculate;
 import com.santander.gqs.client.CalculateResponse;
 import com.santander.gqs.client.GetProdutcs;
@@ -70,7 +73,7 @@ public class GqsApplicationApiImpl implements GqsApplicationApi {
 			@ApiParam(value = "Client Id header", required = true) @RequestHeader(value = "X-Santander-Client-Id", required = true) String xSantanderClientId,
 			@NotNull @ApiParam(value = "Password", required = true) @Valid @RequestParam(value = "Password", required = true) String password,
 			@NotNull @ApiParam(value = "User", required = true) @Valid @RequestParam(value = "User", required = true) String user,
-			@ApiParam(value = "ES, UK, CH", required = true) @PathVariable("country") String country,
+			@ApiParam(value = "ES, GB, GR", required = true) @PathVariable("country") String country,
 			@ApiParam(value = "GQS data", required = true) @Valid @RequestBody GQSSchema GQSData,
 			@ApiParam(value = "Position of the parent operation in the trace tree. The value is 64 bits long. value is omitted when the span is the root of the trace tree. ") @RequestHeader(value = "X-B3-ParentSpanId", required = false) String xB3ParentSpanId,
 			@ApiParam(value = "Sampling decision. Sampling is a mechanism to reduce the volume of data in the tracing system. In B3, sampling applies consistently per-trace: once the sampling decision is made, the same value must be consistently sent downstream. This means that either all or no spans share a trace ID. The possible values are 0 = Deny 1 = Accept d = Debug") @RequestHeader(value = "X-B3-Sampled", required = false) String xB3Sampled,
@@ -88,9 +91,10 @@ public class GqsApplicationApiImpl implements GqsApplicationApi {
 
 				CalculateResponse calculateResp = gqsClient.getCalculateResponse(calculateReq);
 				String result = calculateResp.getCalculateResult();
-
-				return new ResponseEntity<QuotingScheme>(
-						getJsonFormatResponse(result, objectMapper, QuotingScheme.class), HttpStatus.OK);
+				QuotingScheme auxQuotingScheme = getJsonFormatResponse(result, objectMapper, QuotingScheme.class);
+				List<TextFormat> auxTextFormatList=auxQuotingScheme.getTextFormat();
+				auxQuotingScheme.setHtmlText(HtmlUtil.getCalculateFinanceTextConditions(auxTextFormatList));
+				return new ResponseEntity<QuotingScheme>(auxQuotingScheme, HttpStatus.OK);
 			} catch (IOException e) {
 				log.error("Couldn't serialize response for content type application/json", e);
 				return new ResponseEntity<QuotingScheme>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -107,9 +111,13 @@ public class GqsApplicationApiImpl implements GqsApplicationApi {
 			@ApiParam(value = "The server response", required = true, defaultValue = "application/json") @RequestHeader(value = "Accept", required = true) String accept,
 			@ApiParam(value = "metadata content type", required = true, defaultValue = "application/json") @RequestHeader(value = "Content-Type", required = true) String contentType,
 			@ApiParam(value = "Client Id header", required = true) @RequestHeader(value = "X-Santander-Client-Id", required = true) String xSantanderClientId,
-			@ApiParam(value = "ES, UK, CH", required = true) @PathVariable("country") String country,
-			@ApiParam(value = "input Data", required = true) @Valid @RequestBody InputParams inputParams,
-			@NotNull @ApiParam(value = "Version", required = true) @Valid @RequestParam(value = "Version", required = true) String version,
+			@ApiParam(value = "ES, GB, GR", required = true) @PathVariable("country") String country,
+			@NotNull @ApiParam(value = "DealerCode", required = true) @Valid @RequestParam(value = "DealerCode", required = true) String dealerCode,
+			@NotNull @ApiParam(value = "User", required = true) @Valid @RequestParam(value = "User", required = true) String user,
+			@NotNull @ApiParam(value = "Password", required = true) @Valid @RequestParam(value = "Password", required = true) String password,
+			@ApiParam(value = "CapCode", required = false) @Valid @RequestParam(value = "CapCode", required = false) String capCode,
+			@ApiParam(value = "VIN", required = false) @Valid @RequestParam(value = "VIN", required = false) String vin,
+			@ApiParam(value = "LicensePlate", required = false) @Valid @RequestParam(value = "LicensePlate", required = false) String licensePlate,
 			@ApiParam(value = "Position of the parent operation in the trace tree. The value is 64 bits long. value is omitted when the span is the root of the trace tree. ") @RequestHeader(value = "X-B3-ParentSpanId", required = false) String xB3ParentSpanId,
 			@ApiParam(value = "Sampling decision. Sampling is a mechanism to reduce the volume of data in the tracing system. In B3, sampling applies consistently per-trace: once the sampling decision is made, the same value must be consistently sent downstream. This means that either all or no spans share a trace ID. The possible values are 0 = Deny 1 = Accept d = Debug") @RequestHeader(value = "X-B3-Sampled", required = false) String xB3Sampled,
 			@ApiParam(value = "Position of the current operation in the trace tree. The value is 64 bits long. Do not integererpret the value it may or may not be derived from the value of the TraceId.") @RequestHeader(value = "X-B3-SpanId", required = false) String xB3SpanId,
@@ -120,7 +128,14 @@ public class GqsApplicationApiImpl implements GqsApplicationApi {
 
 				GetProdutcs getProductsRequest = objectGqsFactory.createGetProdutcs();
 				getProductsRequest.setBusinessUnit("ES");
-				getProductsRequest.setVersion(version);
+				getProductsRequest.setVersion("1");
+				InputParams inputParams = new InputParams();
+				inputParams.setDealerCode(dealerCode);
+				inputParams.setUser(user);
+				inputParams.setPassword(password);
+				inputParams.setCapCode(capCode);
+				inputParams.setVIN(vin);
+				inputParams.setLicensePlate(licensePlate);
 				String inputParamsXml = xmlGQSMapper.writeValueAsString(inputParams);
 				getProductsRequest.setXMLData(inputParamsXml);
 

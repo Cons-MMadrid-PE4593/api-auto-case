@@ -20,7 +20,7 @@ public class SpringFoxConfig {
 	
 	ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("CalculatorSCF")
+				.title("AutosSCF")
 	            .description("Api to operate GQS GetProducts and Calculator")
 	            .license("Apache 2.0")
 	            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")

@@ -39,7 +39,7 @@ public interface GqsApplicationApi {
 			@ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Error Server") })
-	@RequestMapping(value = "/gqsApplication/calculator/{country}/v1/calculate", produces = {
+	@RequestMapping(value = "/gqs/calculator/{country}/v1/calculate", produces = {
 			"application/json" }, consumes = { "application/json" }, method = RequestMethod.POST)
 	ResponseEntity<QuotingScheme> getSimulation(
 			@ApiParam(value = "The server response", required = true, defaultValue = "application/json") @RequestHeader(value = "Accept", required = true) String accept,
@@ -62,15 +62,19 @@ public interface GqsApplicationApi {
 			@ApiResponse(code = 401, message = "Unauthorized"), @ApiResponse(code = 403, message = "Forbidden"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Error Server") })
-	@RequestMapping(value = "/gqsApplication/calculator/{country}/v1/products", produces = {
+	@RequestMapping(value = "/gqs/calculator/{country}/v1/products", produces = {
 			"application/json" }, consumes = { "application/json" }, method = RequestMethod.POST)
 	ResponseEntity<ProductsResponse> requestProducts(
 			@ApiParam(value = "The server response", required = true, defaultValue = "application/json") @RequestHeader(value = "Accept", required = true) String accept,
 			@ApiParam(value = "metadata content type", required = true, defaultValue = "application/json") @RequestHeader(value = "Content-Type", required = true) String contentType,
 			@ApiParam(value = "Client Id header", required = true) @RequestHeader(value = "X-Santander-Client-Id", required = true) String xSantanderClientId,
-			@ApiParam(value = "ES, UK, CH", required = true) @PathVariable("country") String country,
-			@ApiParam(value = "input Data", required = true) @Valid @RequestBody InputParams inputParams,
-			@NotNull @ApiParam(value = "Version", required = true) @Valid @RequestParam(value = "Version", required = true) String version,
+			@ApiParam(value = "ES, GB, GR", required = true) @PathVariable("country") String country,
+			@NotNull @ApiParam(value = "DealerCode", required = true) @Valid @RequestParam(value = "DealerCode", required = true) String dealerCode,
+			@NotNull @ApiParam(value = "User", required = true) @Valid @RequestParam(value = "User", required = true) String user,
+			@NotNull @ApiParam(value = "Password", required = true) @Valid @RequestParam(value = "Password", required = true) String password,
+			@ApiParam(value = "CapCode", required = false) @Valid @RequestParam(value = "CapCode", required = false) String capCode,
+			@ApiParam(value = "VIN", required = false) @Valid @RequestParam(value = "VIN", required = false) String vin,
+			@ApiParam(value = "LicensePlate", required = false) @Valid @RequestParam(value = "LicensePlate", required = false) String licensePlate,
 			@ApiParam(value = "Position of the parent operation in the trace tree. The value is 64 bits long. value is omitted when the span is the root of the trace tree. ") @RequestHeader(value = "X-B3-ParentSpanId", required = false) String xB3ParentSpanId,
 			@ApiParam(value = "Sampling decision. Sampling is a mechanism to reduce the volume of data in the tracing system. In B3, sampling applies consistently per-trace: once the sampling decision is made, the same value must be consistently sent downstream. This means that either all or no spans share a trace ID. The possible values are 0 = Deny 1 = Accept d = Debug") @RequestHeader(value = "X-B3-Sampled", required = false) String xB3Sampled,
 			@ApiParam(value = "Position of the current operation in the trace tree. The value is 64 bits long. Do not integererpret the value it may or may not be derived from the value of the TraceId.") @RequestHeader(value = "X-B3-SpanId", required = false) String xB3SpanId,

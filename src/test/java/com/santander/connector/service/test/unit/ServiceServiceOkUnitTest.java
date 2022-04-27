@@ -40,11 +40,9 @@ class ServiceServiceOkUnitTest {
 
 	@Test
 	public void getProductTest() {
-		String urlTemplate = "/gqsApplication/calculator/ES/v1/products?Version=1";
-		String strJsonInputParams = "{\"DealerCode\":\"183735\", \"User\":\"NWA\", \"Password\":\"NWA_GEN_PRE\", \"CapCode\":\"\", \"VIN\":\"WW1111AFRJ222222\", \"LicensePlate\":\"0489KML\"}";
+		String urlTemplate = "/gqs/calculator/ES/v1/products?DealerCode=183735&User=NWA&Password=NWA_GEN_PRE";
 		RequestBuilder reqBuilder = MockMvcRequestBuilders.post(urlTemplate).accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON).header("X-Santander-Client-Id", "123456")
-				.content(strJsonInputParams);
+				.contentType(MediaType.APPLICATION_JSON).header("X-Santander-Client-Id", "123456");
 		try {
 			MvcResult result = mockMvc.perform(reqBuilder).andExpect(status().isOk()).andReturn();
 			objectMapper = new ObjectMapper();
@@ -58,7 +56,7 @@ class ServiceServiceOkUnitTest {
 
 	@Test
 	public void getSimulationTest() {
-		String urlTemplate = "/gqsApplication/calculator/ES/v1/calculate?Password=jcm&User=jcm";
+		String urlTemplate = "/gqs/calculator/ES/v1/calculate?Password=jcm&User=jcm";
 		String strJsonGqsParams = "{\"Dealer\":\"183735\",\"Product\":\"ES2341\",\"RetailPrice\":\"57000\",\"DownPayment\":\"5000\",\"DeliveredItemValue\":\"0\",\"OtherLoansAmount\":\"0\",\"Balloon\":\"0\",\"Period\":\"24\",\"Instalment\":\"0\",\"InterestRate\":\"3.25\",\"DeferredPeriod\":\"0\",\"Mileage\":\"0\",\"InsurancePrime\":\"0\",\"FirstInstalmentDate\":\"02/05/2022\",\"InterestDate\":\"31/03/2022\",\"FeeType\":\"F\",\"AssetsCode\":\"\",\"Insurances\":\"\"}";
 		RequestBuilder reqBuilder = MockMvcRequestBuilders.post(urlTemplate).accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).header("X-Santander-Client-Id", "123456")

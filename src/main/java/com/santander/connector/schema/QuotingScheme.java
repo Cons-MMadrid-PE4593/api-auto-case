@@ -34,6 +34,30 @@ public class QuotingScheme   {
   @Valid
   private List<TextFormat> textFormat = null;
   
+  @JsonProperty("html_text")
+  private String htmlText = null;
+
+  public QuotingScheme htmlText(String htmlText) {
+    this.htmlText = htmlText;
+    return this;
+  }
+
+  /**
+   * Get html_text
+   * @return html_text
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getHtmlText() {
+    return htmlText;
+  }
+
+  public void setHtmlText(String htmlText) {
+    this.htmlText = htmlText;
+  }
+
+  
 
   public QuotingScheme quoteTable(List<QuoteTable> quoteTable) {
     this.quoteTable = quoteTable;
