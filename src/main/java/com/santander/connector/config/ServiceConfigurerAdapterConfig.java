@@ -12,7 +12,7 @@ import org.springframework.security.web.header.writers.frameoptions.XFrameOption
 //@EnableWebSecurity
 //@Order(com.santander.serenity.devstack.util.Constants.DEVSTACK_SECURITY_ORDER - 2)
 public class ServiceConfigurerAdapterConfig extends WebSecurityConfigurerAdapter {
-	
+
 //    @Override
 //    public void configure(WebSecurity web) {
 ////        web.ignoring().
