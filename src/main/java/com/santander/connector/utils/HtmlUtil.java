@@ -11,10 +11,10 @@ public final class HtmlUtil {
 		String html = "";
 		TextFormat minSizeTF = textFormatList.stream().min(Comparator.comparing(TextFormat::getSize))
 				.orElseThrow(NoSuchElementException::new);
-		int minSize = Integer.valueOf(minSizeTF.getSize());
+		int minSize = Integer.parseInt(minSizeTF.getSize());
 		TextFormat maxSizeTF = textFormatList.stream().max(Comparator.comparing(TextFormat::getSize))
 				.orElseThrow(NoSuchElementException::new);
-		int maxSize = Integer.valueOf(maxSizeTF.getSize());
+		int maxSize = Integer.parseInt(maxSizeTF.getSize());
 
 		if (textFormatList != null && textFormatList.size() > 0) {
 			for (TextFormat item : textFormatList) {
@@ -22,7 +22,7 @@ public final class HtmlUtil {
 				html += item.getAdditionalProperties().get("text");
 				html = closeSpecialTags(html, Boolean.parseBoolean(item.getBold()),
 						Boolean.parseBoolean(item.getUnderline()),
-						(Integer.valueOf(item.getSize()) == maxSize) || Integer.valueOf(item.getSize()) > minSize);
+						(Integer.parseInt(item.getSize()) == maxSize) || Integer.parseInt(item.getSize()) > minSize);
 			}
 		}
 		return html;
@@ -43,11 +43,11 @@ public final class HtmlUtil {
 
 	public static String openSpecialsTags(String html, int minSize, int maxSize, TextFormat item, boolean bBig, boolean bBold, boolean bUnderLine) {
 		
-		if (Integer.valueOf(item.getSize()) == maxSize) {
+		if (Integer.parseInt(item.getSize()) == maxSize) {
 			html += Constants.OPENBIGSTRONG;
 			bBig = true;
 
-		} else if (Integer.valueOf(item.getSize()) > minSize) {
+		} else if (Integer.parseInt(item.getSize()) > minSize) {
 			html += Constants.OPENSTRONG;
 			bBig = true;
 		}
